@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calculadora</title>
+    <!--<link href="style.css" rel="stylesheet" type="text/css" />-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .background {
+            background-image: radial-gradient(circle, lightgrey, grey, slategrey, rgb(32, 34, 36));
+            height: 100vh;
+            color: White;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .text_top {
+            padding: 20px;
+            position: absolute;
+            top: 20px;
+            left: 80px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            vertical-align: top;
+            font-size: 45px;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+
+        .text_par {
+            padding: 20px;
+            position: absolute;
+            top: 110px;
+            left: 380px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic;
+            text-align: left;
+            vertical-align: top;
+            font-size: 40px;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+
+        .text_2 {
+            padding: 20px;
+            position: absolute;
+            bottom: 45px;
+            left: 90px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic;
+            text-align: left;
+            vertical-align: top;
+            font-size: 30px;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+
+        .calculadora {
+            background-color: rgba(255, 250, 240, 0.6);
+            border-radius: 15px;
+            position: absolute;
+            right: 150px;
+            padding: 30px;
+            font-size: 20px;
+            text-align: center;
+            color: black;
+            border: none;
+            text-shadow: none;
+        }
+
+        .caixa_de_audio {
+            position: absolute;
+            bottom: 110px;
+            left: 235px;
+        }
+
+        .botao {
+            width: 60px;
+            height: 60px;
+            font-size: 15px;
+            border-radius: 10px;
+            border: none;
+            background-color: darkslategray;
+            color: white;
+            cursor: pointer;
+            margin: 4px;
+            text-shadow: none;
+        }
+
+        .botao:hover {
+            background-color: black;
+        }
+
+        #resultado {
+            height: 40px;
+            width: 270px;
+            background-color: white;
+            margin: 5px;
+            border-radius: 6px;
+            color: black;
+            text-align: right;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="caixa_de_audio">
+            <audio controls loop>
+                <source src="notorious.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <img src="duranduran.jpg" , width=270px, height=270px, style="margin-left: 250px; margin-top: 15px">
+        <div class="text_top">
+            <h1>Trabalho 2 LP</h1>
+        </div>
+        <div class="text_par">
+            <p>by Victor Ramos</p>
+        </div>
+        <div class="text_2">
+            <p>Você está ouvindo "Notorious" de Duran Duran.</p>
+        </div>
+        <div class="calculadora">
+            <h1>Calculadora</h1>
+            <p id="resultado"></p>
+            <table>
+                <tr>
+                    <td><button class="botao" onclick="clean()">C</button></td>
+                    <td><button class="botao" onclick="back()"><</button></td>
+                    <td><button class="botao" onclick="insert('/')">÷</button></td>
+                    <td><button class="botao" onclick="insert('*')">x</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('7')">7</button></td>
+                    <td><button class="botao" onclick="insert('8')">8</button></td>
+                    <td><button class="botao" onclick="insert('9')">9</button></td>
+                    <td><button class="botao" onclick="insert('-')">-</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('4')">4</button></td>
+                    <td><button class="botao" onclick="insert('5')">5</button></td>
+                    <td><button class="botao" onclick="insert('6')">6</button></td>
+                    <td><button class="botao" onclick="insert('+')">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="insert('1')">1</button></td>
+                    <td><button class="botao" onclick="insert('2')">2</button></td>
+                    <td><button class="botao" onclick="insert('3')">3</button></td>
+                    <td rowspan="2"><button class="botao" onclick="calcular()" style="height: 127px;">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" onclick="insert('0')" style="width: 127px;">0</button></td>
+                    <td><button class="botao" onclick="insert('.')">.</button></td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            function insert(num) {
+                var numero = document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = numero + num;
+            }
+            function clean() {
+                document.getElementById('resultado').innerHTML = "";
+            }
+            function calcular() {
+                var result = document.getElementById('resultado').innerHTML;
+                if (result)
+                    document.getElementById('resultado').innerHTML = eval(result);
+            }
+            function back() {
+                var result = document.getElementById('resultado').innerHTML;
+                document.getElementById('resultado').innerHTML = result.substring(0, result.length - 1);
+            }
+        </script>
+</body>
+
+</html>
